@@ -9,5 +9,4 @@ urlpatterns = [
     #############
     path('public/animals/', AnimalViewSet.as_view({'get':'list'}), name='animal_list'),
     path('public/animals/<int:pk>/', AnimalViewSet.as_view({'get':'retrieve'}), name='animal_retrieve'),
-    #############
 ]

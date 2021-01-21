@@ -8,10 +8,3 @@ class AnimalAdmin(admin.ModelAdmin):
 @admin.register(AnimalPhoto)
 class AnimalPhotoAdmin(admin.ModelAdmin):
     pass
-
-@admin.register(Operation)
-class OperationAdmin(admin.ModelAdmin):
-    pass
-@admin.register(OperationInfo)
-class OperationInfoAdmin(admin.ModelAdmin):
-    pass

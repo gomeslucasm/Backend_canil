@@ -43,6 +43,8 @@ urlpatterns = [
     path('api/',include('manage_users.urls')),
     path('api/',include('admin_animals.private_urls')),
     path('api/',include('admin_animals.public_urls')),
+    path('api/',include('adoptions.urls')),
+    path('api/', include('admin_operations.urls'))
     #path('api/private/',include('admin_animals.private_urls')),
     #path('api/public/',include('admin_animals.public_urls'))
 ]

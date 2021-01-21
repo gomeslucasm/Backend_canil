@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'admin_animals',
     'rest_framework',
     'drf_yasg',
+    'admin_operations',
+    'adoptions'
 ]
 
 MIDDLEWARE = [

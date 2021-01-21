@@ -5,7 +5,7 @@ from django.contrib.auth import get_user_model
 class StaffUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = get_user_model()
-        fields = ('email','username','first_name','last_name','cellphone','password',
+        fields = ('id','email','username','first_name','last_name','cellphone','password',
         'is_staff','is_volunteer','is_veterinary')
         extra_kwargs = {
             'password': {'write_only': True},
@@ -23,7 +23,7 @@ class StaffUserSerializer(serializers.ModelSerializer):
 class VolunteerUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = get_user_model()
-        fields = ('email','username','first_name','last_name','cellphone','password')
+        fields = ('id','email','username','first_name','last_name','cellphone','password')
         extra_kwargs = {
             'password': {'write_only': True},
             'is_staff':{'read_only': True},
@@ -40,7 +40,7 @@ class VolunteerUserSerializer(serializers.ModelSerializer):
 class VeterinaryUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = get_user_model()
-        fields = ('email','username','first_name','last_name','cellphone','password')
+        fields = ('id','email','username','first_name','last_name','cellphone','password')
         extra_kwargs = {
             'password': {'write_only': True},
             'is_staff':{'read_only': True},
@@ -53,3 +53,16 @@ class VeterinaryUserSerializer(serializers.ModelSerializer):
         model = self.Meta.model.objects.create_veterinary_user(**validated_data)
         model.save()
         return model
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = get_user_model()
+        fields = ('id','email','username','first_name','last_name','cellphone','password')
+        extra_kwargs = {
+            'password': {'write_only': True},
+            'is_staff':{'read_only': True},
+            'is_volunteer':{'read_only': True},
+            'is_veterinary':{'read_only': True},
+            'is_superuser':{'read_only': True},
+            }
+

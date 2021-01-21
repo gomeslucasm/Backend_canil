@@ -6,7 +6,7 @@ from dateutil.relativedelta import relativedelta
 from datetime import datetime, timedelta,timezone, date
 
 class Animal(models.Model):
-    ''' Animal model '''
+    ''' Modelo que salva as informações de um animal '''
     user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name='user')
     ANIMAL_TYPES =(
         ('C','Gato'),
@@ -23,7 +23,7 @@ class Animal(models.Model):
         ('P','Pequeno'),
         ('M','Médio'),
         ('G','Grande'),
-        ('G','Muito grande')
+        ('GG','Muito grande')
     )
     size = models.CharField(max_length = 2 , choices = SIZE)
     show = models.BooleanField(default = True)
@@ -35,14 +35,15 @@ class Animal(models.Model):
         ('C','Canil'),
         ('V','Voluntário')
     )
-    location = models.CharField(max_length = 1, choices = LOCATION, default = 'c')
+    location = models.CharField(max_length = 1, choices = LOCATION, default = 'C')
     SEX = (
         ('M','Macho'),
         ('F','Fêmea')
     )
     sex = models.CharField(max_length = 1, choices = SEX, default = 'M')
     responsible_volunteer = models.ForeignKey(get_user_model(), on_delete=models.SET_NULL, blank = True, null = True, related_name = 'volunteer')
-
+    is_castrated = models.BooleanField(default = False)
+    is_adopted = models.BooleanField(default = False)
 
     def __str__(self):
         return self.description
@@ -75,21 +76,5 @@ class AnimalPhoto(models.Model):
     photo = models.ImageField(default = default_img)
     animal = models.ForeignKey(Animal,on_delete=models.CASCADE,related_name='animal_photo')
 
-class Operation(models.Model):
-    ''' Class to store operations as: vaccines, surgeries '''
-    name = models.CharField(max_length = 50)
 
-    def __str__(self):
-        return self.name
 
-class OperationInfo(models.Model):
-
-    ''' Model to store informations about a operation '''
-    operation = models.ForeignKey(Operation, on_delete=models.CASCADE, related_name='operation_info')
-    user = models.ForeignKey(get_user_model(), on_delete=models.SET_NULL, null= True)
-    animal = models.ForeignKey(Animal, on_delete=models.CASCADE, related_name = 'operation_animal')
-    information = models.TextField(max_length = 1000)
-    date = models.DateField(auto_now_add=True, blank = True)
-
-    def __str__(self):
-        return self.information
