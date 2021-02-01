@@ -9,17 +9,22 @@ class AnimalPhotoSerializer(serializers.ModelSerializer):
     ''' Serializador das fotos relacionadas a um animal '''
     class Meta:
         model = AnimalPhoto
-        fields = ('photo','id')
+        fields = ('photo','id','animal')
 
 class AnimalSerializer(serializers.ModelSerializer):
     ''' Serializador do objeto animal '''
-    animal_photo = AnimalPhotoSerializer(many=True)
+    animal_photo = AnimalPhotoSerializer(many=True, read_only = True)
     class Meta:
         model = Animal
-        fields = ('__all__')
+        fields = [
+            'id','animal_photo','animal_type','birth_date','description',
+            'size','show','entry_date','death_date','code','location','sex',
+            'is_castrated','is_adopted','responsible_volunteer','user','responsible_volunteer'
+            ]
+        extra_kwargs = {
+            'animal_photo':{'required':False}
+        }
     
     def create(self, validated_data):
-        animal_photos = validated_data.pop('animal_photo')
-        animal = Animal.objects.create(validated_data)
-        for animal_photo in animal_photos:
-            AnimalPhoto.objects.create(animal = animal, **animal_photo)
+        animal = Animal.objects.create(**validated_data)
+        return animal

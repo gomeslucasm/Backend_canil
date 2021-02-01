@@ -45,20 +45,36 @@ class AnimalViewSet(viewsets.ViewSet):
         ''' 
         Adiciona um novo animal
         '''
+        
         data = request.data
-        data['user'] = request.user.id
+        data['user'] = 1
+        exclude_keys = []
+        animal_photos = list()
+        for key in data:
+            if key[0:12] == 'animal_photo':
+                animal_photos.append(data[key])
+                exclude_keys.append(key)
+
+        for key in exclude_keys:
+            data.pop(key)
+
+        ''' import ipdb;ipdb.set_trace() '''
         serializer = AnimalSerializer(data = data)
         
         if serializer.is_valid():
-            serializer.save()
+            animal = serializer.save()
+            for animal_photo in animal_photos:
+                serializer = AnimalPhotoSerializer(data = {'animal':animal.id,'photo':animal_photo,})
+                if serializer.is_valid():
+                    serializer.save()
             return Response(serializer.data, status = status.HTTP_201_CREATED)
         else:
             return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
     
-    def get_permissions(self):
-        """
-        Permissões para o acesso da view
-        tem que estar logado para acessar todas as views
-        """
-        permission_classes = [IsUser]
-        return [permission() for permission in permission_classes]
+'''  def get_permissions(self):
+
+Permissões para o acesso da view
+tem que estar logado para acessar todas as views
+
+permission_classes = [IsUser]
+return [permission() for permission in permission_classes] '''
