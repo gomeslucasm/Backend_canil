@@ -20,7 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
+# SECURITY WARNING: keep the secret key      in production secret!
 # SECRET_KEY = '=3(g3ulmiw^q(-$=dh*#7*k@h_k^m3%6g#4)k$@t)=i&yg5^mq'
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', '=3(g3ulmiw^q(-$=dh*#7*k@h_k^m3%6g#4)k$@t)=i&yg5^mq')
 
@@ -173,7 +173,7 @@ else:
     CORS_ORIGIN_WHITELIST = [
         'http://localhost:3000',
         'http://127.0.0.1:3000',
-        'http://front-canil-app.vercel.app',
+        'https://front-canil-app.vercel.app',
     ]
 
 AUTH_USER_MODEL = 'manage_users.NewUser'
