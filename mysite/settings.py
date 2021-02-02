@@ -162,6 +162,7 @@ CORS_ALLOW_HEADERS = default_headers + (
 CORS_ORIGIN_WHITELIST = [
 'http://localhost:3000',
 'http://127.0.0.1:3000'
+'https://front-canil-app.vercel.app/'
 ]
 
 AUTH_USER_MODEL = 'manage_users.NewUser'
