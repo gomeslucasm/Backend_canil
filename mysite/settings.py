@@ -139,10 +139,10 @@ if DEBUG:
         os.path.join(BASE_DIR, 'static'), #Your bundle.js path
     ]
 else:
-    ''' STATIC_ROOT = os.path.join(BASE_DIR,'static') '''
-    STATICFILES_DIRS = [
+    STATIC_ROOT = os.path.join(BASE_DIR,'static')
+    ''' STATICFILES_DIRS = [
         os.path.join(BASE_DIR, 'static'), #Your bundle.js path
-    ]
+    ] '''
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES':[
