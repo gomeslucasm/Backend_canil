@@ -26,9 +26,14 @@ SECRET_KEY = '=3(g3ulmiw^q(-$=dh*#7*k@h_k^m3%6g#4)k$@t)=i&yg5^mq'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = []
 
 
+if DEBUG:
+    ALLOWED_HOSTS = ['*']
+else:
+    ALLOWED_HOSTS = ['http://localhost:3000',
+    'http://127.0.0.1:3000',
+    'http://front-canil-app.vercel.app',]
 
 # Application definition
 
