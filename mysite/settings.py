@@ -31,7 +31,9 @@ DEBUG = False
 if DEBUG:
     ALLOWED_HOSTS = ['*']
 else:
-    ALLOWED_HOSTS = ['http://localhost:3000',
+    ALLOWED_HOSTS = [
+    'https://django-backend-canil.azurewebsites.net'
+    'http://localhost:3000',
     'http://127.0.0.1:3000',
     'http://front-canil-app.vercel.app',]
 
