@@ -33,7 +33,7 @@ DEBUG = False
 if DEBUG:
     ALLOWED_HOSTS = ['*']
 else:
-    ALLOWED_HOSTS = ['localhost',]
+    ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -142,9 +142,6 @@ if DEBUG:
     ]
 else:
     STATIC_ROOT = os.path.join(BASE_DIR,'static')
-    ''' STATICFILES_DIRS = [
-        os.path.join(BASE_DIR, 'static'), #Your bundle.js path
-    ] '''
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES':[
@@ -174,6 +171,8 @@ if DEBUG:
         'http://127.0.0.1:3000',]
 else:
     CORS_ORIGIN_WHITELIST = [
+        'http://localhost:3000',
+        'http://127.0.0.1:3000',
         'http://front-canil-app.vercel.app',
     ]
 
