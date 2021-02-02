@@ -139,7 +139,10 @@ if DEBUG:
         os.path.join(BASE_DIR, 'static'), #Your bundle.js path
     ]
 else:
-    STATIC_ROOT = os.path.join(BASE_DIR,'static')
+    ''' STATIC_ROOT = os.path.join(BASE_DIR,'static') '''
+    STATICFILES_DIRS = [
+        os.path.join(BASE_DIR, 'static'), #Your bundle.js path
+    ]
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES':[
@@ -163,11 +166,14 @@ CORS_ALLOW_HEADERS = default_headers + (
     'Access-Control-Allow-Origin',
 )
 
-CORS_ORIGIN_WHITELIST = [
-    'http://localhost:3000',
-    'http://127.0.0.1:3000',
-    'http://front-canil-app.vercel.app',
-]
+if DEBUG:
+    CORS_ORIGIN_WHITELIST = [
+        'http://localhost:3000',
+        'http://127.0.0.1:3000',]
+else:
+    CORS_ORIGIN_WHITELIST = [
+        'http://front-canil-app.vercel.app',
+    ]
 
 AUTH_USER_MODEL = 'manage_users.NewUser'
 
