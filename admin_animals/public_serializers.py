@@ -10,9 +10,11 @@ class PublicAnimalSerializer(serializers.ModelSerializer):
     animal_type = serializers.CharField(source = 'get_animal_type_display')
     location = serializers.CharField(source = 'get_location_display')
     size = serializers.CharField(source = 'get_size_display')
+    sex_display = serializers.CharField(source = 'get_sex_display')
     animal_photo = AnimalPhotoSerializer(many = True)
 
     class Meta:
         model = Animal
-        fields = ('id','animal_type','description','size','location','age','animal_photo')
+        fields = ('id','animal_type','description',
+        'size','location','age','animal_photo','show','sex','sex_display')
 

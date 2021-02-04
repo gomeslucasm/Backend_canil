@@ -39,13 +39,22 @@ class AnimalViewSet(viewsets.ViewSet):
         serializer = AnimalSerializer(query)
         return Response(serializer.data)
 
+    def destroy(self, request, pk=None):
+        queryset = Animal.objects.all()
+        query = get_object_or_404(queryset, pk=pk)
+        query = query.delete()
+        ''' import ipdb;ipdb.set_trace(); '''
+        return Response(status = status.HTTP_200_OK)
+        
+
+
     animal_response = openapi.Response('Retorna o animal criado', AnimalSerializer)
     @swagger_auto_schema(request_body=AnimalSerializer, responses = {201:animal_response})
     def create(self,request):
         ''' 
         Adiciona um novo animal
         '''
-        
+        """ import ipdb;ipdb.set_trace() """
         data = request.data
         data['user'] = 1
         exclude_keys = []
@@ -58,9 +67,15 @@ class AnimalViewSet(viewsets.ViewSet):
         for key in exclude_keys:
             data.pop(key)
 
-        ''' import ipdb;ipdb.set_trace() '''
+       
         serializer = AnimalSerializer(data = data)
-        
+
+        try:
+            data['responsible_volunteer'] = int(data['responsible_volunteer'])
+        except:
+            data.pop('responsible_volunteer')
+
+        """ import ipdb;ipdb.set_trace() """
         if serializer.is_valid():
             animal = serializer.save()
             for animal_photo in animal_photos:

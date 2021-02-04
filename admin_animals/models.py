@@ -69,6 +69,8 @@ class Animal(models.Model):
                 return str(diff.months) + ' mês'
         elif diff.days > 1:
             return str(diff.days) + ' dias'
+        else:
+            return '1 dia'
 
 class AnimalPhoto(models.Model):
     """ Modelo que armazena as fotos para um determinado animal """
