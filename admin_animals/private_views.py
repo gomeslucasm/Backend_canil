@@ -54,7 +54,7 @@ class AnimalViewSet(viewsets.ViewSet):
         ''' 
         Adiciona um novo animal
         '''
-        """ import ipdb;ipdb.set_trace() """
+        
         data = request.data
         data['user'] = 1
         exclude_keys = []
@@ -67,14 +67,15 @@ class AnimalViewSet(viewsets.ViewSet):
         for key in exclude_keys:
             data.pop(key)
 
-       
-        serializer = AnimalSerializer(data = data)
+        
 
         try:
             data['responsible_volunteer'] = int(data['responsible_volunteer'])
         except:
             data.pop('responsible_volunteer')
 
+        serializer = AnimalSerializer(data = data)
+        
         """ import ipdb;ipdb.set_trace() """
         if serializer.is_valid():
             animal = serializer.save()

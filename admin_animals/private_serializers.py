@@ -13,11 +13,11 @@ class AnimalPhotoSerializer(serializers.ModelSerializer):
 
 class AnimalSerializer(serializers.ModelSerializer):
     ''' Serializador do objeto animal '''
-    animal_photo = AnimalPhotoSerializer(many=True, read_only = True)
-    location_display = serializers.CharField(source = 'get_location_display')
-    size_display = serializers.CharField(source = 'get_size_display')
-    sex_display = serializers.CharField(source = 'get_sex_display')
-    animal_type_display = serializers.CharField(source = 'get_animal_type_display')
+    animal_photo = AnimalPhotoSerializer(many=True, read_only = True, required = False)
+    location_display = serializers.CharField(source = 'get_location_display', required = False)
+    size_display = serializers.CharField(source = 'get_size_display', required = False)
+    sex_display = serializers.CharField(source = 'get_sex_display', required = False)
+    animal_type_display = serializers.CharField(source = 'get_animal_type_display', required = False)
     class Meta:
         model = Animal
         fields = [
@@ -27,13 +27,13 @@ class AnimalSerializer(serializers.ModelSerializer):
             'location_display','sex_display','animal_type_display', 
             'size_display',
             ]
-        extra_kwargs = {
+        ''' extra_kwargs = {
             'animal_photo':{'required':False},
             'location_display':{'required':False},
             'sex_display':{'required':False},
             'animal_type_display':{'required':False}, 
             'size_display':{'required':False},
-        }
+        } '''
     
     def create(self, validated_data):
         animal = Animal.objects.create(**validated_data)

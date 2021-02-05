@@ -103,6 +103,8 @@ if DEBUG:
         }
     }
 else:
+    # DBHOST is only the server name, not the full URL
+    hostname = os.environ['DBHOST']
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
