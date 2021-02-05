@@ -26,7 +26,7 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', '=3(g3ulmiw^q(-$=dh*#7*k@h_k^m3
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 #DEBUG = os.environ.get('DJANGO_DEBUG', False) != 'False'
 
 
