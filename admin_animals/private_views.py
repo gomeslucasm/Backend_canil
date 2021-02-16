@@ -10,7 +10,7 @@ from django.shortcuts import get_object_or_404
 from manage_users.permissions import *
 from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
-
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 # Basic views
 
@@ -25,8 +25,31 @@ class AnimalViewSet(viewsets.ViewSet):
         Retorna a lista dos animais
         '''
         queryset = Animal.objects.all()
-        serializer = AnimalSerializer(queryset,many = True)
-        return Response(serializer.data)
+        
+        page = request.GET.get('page', 1)
+        paginator = Paginator(queryset, 10)
+
+        try:
+            data = paginator.page(page)
+        except PageNotAnInteger:
+            data = paginator.page(1)
+        except EmptyPage:
+            data = paginator.page(paginator.num_pages)
+
+        serializer = AnimalSerializer(data,many = True) 
+
+        if data.has_next():
+            nextPage = data.next_page_number()
+        if data.has_previous():
+            previousPage = data.previous_page_number()
+
+        
+
+        return Response({
+                'data':serializer.data,
+                'nextPage':nextPage,
+                'previousPage':previousPage,
+            })
 
     animal_response = openapi.Response('Informações do animal', AnimalSerializer)
     @swagger_auto_schema(responses = {200:animal_response})

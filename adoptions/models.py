@@ -7,9 +7,13 @@ class Adopter(models.Model):
     ''' Modelo de adotante '''
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=50)
-    description = models.TextField(max_length=500)
+    description = models.TextField(max_length=500, blank=True, null=True)
     cellphone = models.CharField(max_length=20)
-    adress = models.CharField(max_length=100)
+    state = models.CharField(max_length=30)
+    city = models.CharField(max_length=30)
+    neighbourhood = models.CharField(max_length=30)
+    street = models.CharField(max_length=30)
+    number = models.CharField(max_length=30)
     document = models.CharField(max_length=100)
 
 class Adoption(models.Model):

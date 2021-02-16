@@ -11,7 +11,7 @@ from manage_users.permissions import *
 from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
 from django.db.models import Q
-
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 # Basic views
@@ -29,18 +29,45 @@ class AnimalViewSet(viewsets.ViewSet):
         query_request = request.GET
         queryset = Animal.objects.filter(show = True)
     
-        for key in query_request.keys():
-            query_filters = query_request[key]
-            query_filters = query_filters.split('-')
-            expression = list()
-            for query_filter in query_filters:
-                expression.append('Q(' + key + '= "' + query_filter + '")')    
-            print('|'.join(expression))
-            queryset = queryset.filter(eval('|'.join(expression)))
-            print(queryset)
+       #for key in query_request.keys():
+        #    query_filters = query_request[key]
+         #   query_filters = query_filters.split('-')
+        #    expression = list()
+         #   for query_filter in query_filters:
+         #       expression.append('Q(' + key + '= "' + query_filter + '")')    
+         #   print('|'.join(expression))
+         #   queryset = queryset.filter(eval('|'.join(expression)))
+         #   print(queryset) 
 
-        serializer = PublicAnimalSerializer(queryset,many = True)
-        return Response(serializer.data)
+        page = request.GET.get('page', 1)
+        paginator = Paginator(queryset, 2)
+        print('pagina',1)
+        try:
+            data = paginator.page(page)
+        except PageNotAnInteger:
+            data = paginator.page(1)
+        except EmptyPage:
+            data = paginator.page(paginator.num_pages)
+
+        serializer = PublicAnimalSerializer(data,many = True) 
+
+        if data.has_next():
+            nextPage = data.next_page_number()
+        else:
+            nextPage = data.has_next()
+
+        if data.has_previous():
+            previousPage = data.previous_page_number()
+        else:
+            previousPage = data.has_previous()
+
+        return Response({
+                'data':serializer.data,
+                'nextPage':nextPage,
+                'prevPage':previousPage,
+            })
+
+
 
     animal_response = openapi.Response('Descrição da resposta', PublicAnimalSerializer)
     @swagger_auto_schema(responses = {200:animal_response})

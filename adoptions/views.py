@@ -53,13 +53,13 @@ class AdopterViewSet(viewsets.ViewSet):
         else:
             return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
     
-    def get_permissions(self):
+    ''' def get_permissions(self):
         """
         Permissões para o acesso da view
         tem que estar logado para acessar todas as views
         """
         permission_classes = [IsUser]
-        return [permission() for permission in permission_classes]
+        return [permission() for permission in permission_classes] '''
 
 class AdoptionViewSet(viewsets.ViewSet):  
     ''' 
