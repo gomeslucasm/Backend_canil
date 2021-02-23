@@ -13,9 +13,9 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 from pathlib import Path
 import os
 from datetime import timedelta
-import django_heroku
+''' import django_heroku
 django_heroku.settings(locals())
-
+ '''
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -57,6 +57,7 @@ INSTALLED_APPS = [
     'drf_yasg',
     'admin_operations',
     'adoptions',
+    'django_heroku'
 ]
 
 MIDDLEWARE = [
