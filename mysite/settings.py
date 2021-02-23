@@ -29,7 +29,7 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', '=3(g3ulmiw^q(-$=dh*#7*k@h_k^m3
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 #DEBUG = os.environ.get('DJANGO_DEBUG', False) != 'False'
 
 
@@ -169,19 +169,14 @@ STATIC_URL = '/static/'
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
 
-if DEBUG==False:
+if DEBUG:
     STATICFILES_DIRS = [
         os.path.join(BASE_DIR, 'static'), #Your bundle.js path
     ]
 else:
-    #STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'  
-    #STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'  
     STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-    STATIC_URL = '/static/'
-    STATICFILES_DIRS = (
-        os.path.join(BASE_DIR, 'static'),
-)
+
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES':[
@@ -247,7 +242,7 @@ SIMPLE_JWT = {
     'SLIDING_TOKEN_LIFETIME': timedelta(days=1),
     'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=2),
 }
-if DEBUG:
+if DEBUG==False:
     CLOUDINARY_STORAGE = {
         'CLOUD_NAME': 'gomes-lucas',
         'API_KEY': '333496649621125',
