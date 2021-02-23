@@ -168,15 +168,21 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
 
-if DEBUG:
+if DEBUG==True:
     STATICFILES_DIRS = [
         os.path.join(BASE_DIR, 'static'), #Your bundle.js path
     ]
 else:
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'  
-    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+    
+    #  Add configuration for static files storage using whitenoise
+   # STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+
+    #STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+    
 
 
 REST_FRAMEWORK = {
