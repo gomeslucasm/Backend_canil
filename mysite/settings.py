@@ -27,7 +27,7 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', '=3(g3ulmiw^q(-$=dh*#7*k@h_k^m3
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 #DEBUG = os.environ.get('DJANGO_DEBUG', False) != 'False'
 
 
@@ -97,7 +97,13 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 
 # Configure Postgres database; the full username is username@servername,
 # which we construct using the DBHOST value.
-if DEBUG:
+DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
+''' if DEBUG:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
@@ -115,7 +121,7 @@ else:
             'USER': os.environ['DBUSER'] + "@" + hostname,
             'PASSWORD': os.environ['DBPASS'] 
         }
-    }
+    } '''
 
 
 
