@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
+from corsheaders.defaults import default_headers
 from pathlib import Path
 import os
 from datetime import timedelta
@@ -25,7 +26,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key      in production secret!
 # SECRET_KEY = '=3(g3ulmiw^q(-$=dh*#7*k@h_k^m3%6g#4)k$@t)=i&yg5^mq'
-SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', '=3(g3ulmiw^q(-$=dh*#7*k@h_k^m3%6g#4)k$@t)=i&yg5^mq')
+SECRET_KEY = os.environ.get(
+    'DJANGO_SECRET_KEY', '=3(g3ulmiw^q(-$=dh*#7*k@h_k^m3%6g#4)k$@t)=i&yg5^mq')
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -38,7 +40,6 @@ if DEBUG:
 else:
     ALLOWED_HOSTS = ['*']
     #ALLOWED_HOSTS = [os.environ['WEBSITE_HOSTNAME']] if 'WEBSITE_HOSTNAME' in os.environ else []
-
 
 
 # Application definition
@@ -97,15 +98,14 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
 
-
 # Configure Postgres database; the full username is username@servername,
 # which we construct using the DBHOST value.
 DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
-        }
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
+}
 ''' if DEBUG:
     DATABASES = {
         'default': {
@@ -125,8 +125,6 @@ else:
             'PASSWORD': os.environ['DBPASS'] 
         }
     } '''
-
-
 
 
 # Password validation
@@ -171,22 +169,20 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
 
-if DEBUG==True:
-    STATICFILES_DIRS = [
-        os.path.join(BASE_DIR, 'static'), #Your bundle.js path
-    ]
-else:
-    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'  
-    
-    #  Add configuration for static files storage using whitenoise
-   # STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),  # Your bundle.js path
+]
 
-    #STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-    
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+#  Add configuration for static files storage using whitenoise
+# STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+
+#STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 
 REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES':[
+    'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.AllowAny'
     ],
     'DEFAULT_AUTHENTICATION_CLASSES': [
@@ -195,13 +191,12 @@ REST_FRAMEWORK = {
     ]
 }
 
-APPEND_SLASH=False
+APPEND_SLASH = False
 
 REST_AUTH_SERIALIZERS = {
-    'USER_DETAILS_SERIALIZER' :'manage_users.serializers.RegisterNewUserSerializer',
+    'USER_DETAILS_SERIALIZER': 'manage_users.serializers.RegisterNewUserSerializer',
 }
 
-from corsheaders.defaults import default_headers
 
 CORS_ALLOW_HEADERS = default_headers + (
     'Access-Control-Allow-Origin',
@@ -210,7 +205,7 @@ CORS_ALLOW_HEADERS = default_headers + (
 if DEBUG:
     CORS_ORIGIN_WHITELIST = [
         'http://localhost:3000',
-        'http://127.0.0.1:3000',]
+        'http://127.0.0.1:3000', ]
 else:
     CORS_ORIGIN_WHITELIST = [
         'http://localhost:3000',
@@ -220,22 +215,21 @@ else:
 
 AUTH_USER_MODEL = 'manage_users.NewUser'
 
-MEDIA_ROOT =  os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
 SWAGGER_SETTINGS = {
-   'SECURITY_DEFINITIONS': {
-      'Basic': {
+    'SECURITY_DEFINITIONS': {
+        'Basic': {
             'type': 'basic'
-      },
-      'Bearer': {
+        },
+        'Bearer': {
             'type': 'apiKey',
             'name': 'Authorization',
             'in': 'header'
-      }
-   }
+        }
+    }
 }
-
 
 
 SIMPLE_JWT = {
@@ -249,7 +243,7 @@ SIMPLE_JWT = {
     'SLIDING_TOKEN_LIFETIME': timedelta(days=1),
     'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=2),
 }
-if DEBUG==False:
+if DEBUG == False:
     CLOUDINARY_STORAGE = {
         'CLOUD_NAME': 'gomes-lucas',
         'API_KEY': '333496649621125',
