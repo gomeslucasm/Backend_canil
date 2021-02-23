@@ -27,7 +27,7 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', '=3(g3ulmiw^q(-$=dh*#7*k@h_k^m3
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 #DEBUG = os.environ.get('DJANGO_DEBUG', False) != 'False'
 
 
@@ -239,11 +239,11 @@ SIMPLE_JWT = {
     'SLIDING_TOKEN_LIFETIME': timedelta(days=1),
     'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=2),
 }
+if DEBUG:
+    CLOUDINARY_STORAGE = {
+        'CLOUD_NAME': 'gomes-lucas',
+        'API_KEY': '333496649621125',
+        'API_SECRET': 'ea5T7sEUI_yzbYbYGToKDgvc6sQ',
+    }
 
-CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': 'gomes-lucas',
-    'API_KEY': '333496649621125',
-    'API_SECRET': 'ea5T7sEUI_yzbYbYGToKDgvc6sQ',
-}
-
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+    DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
