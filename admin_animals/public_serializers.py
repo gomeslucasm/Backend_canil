@@ -3,15 +3,15 @@ from .models import *
 from .private_serializers import AnimalPhotoSerializer
 
 
-
 class PublicAnimalSerializer(serializers.ModelSerializer):
     ''' Serializador com as informações públicas dos animais '''
 
-    location_display = serializers.CharField(source = 'get_location_display')
-    size_display = serializers.CharField(source = 'get_size_display')
-    sex_display = serializers.CharField(source = 'get_sex_display')
-    animal_type_display = serializers.CharField(source = 'get_animal_type_display')
-    animal_photo = AnimalPhotoSerializer(many = True)
+    location_display = serializers.CharField(source='get_location_display')
+    size_display = serializers.CharField(source='get_size_display')
+    sex_display = serializers.CharField(source='get_sex_display')
+    animal_type_display = serializers.CharField(
+        source='get_animal_type_display')
+    animal_photo = AnimalPhotoSerializer(many=True)
 
     class Meta:
         model = Animal
@@ -28,6 +28,7 @@ class PublicAnimalSerializer(serializers.ModelSerializer):
             'animal_photo',
             'show',
             'sex',
-            'sex_display'
-            )
-
+            'sex_display',
+            'birth_date',
+            'responsible_volunteer',
+        )

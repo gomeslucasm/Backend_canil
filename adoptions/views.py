@@ -10,7 +10,8 @@ from django.shortcuts import get_object_or_404
 from manage_users.permissions import *
 from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
-
+from rest_framework.permissions import AllowAny
+from manage_users.permissions import *
 
 class AdopterViewSet(viewsets.ViewSet):  
     ''' 
@@ -140,3 +141,44 @@ class AdopterWithAnimalViewSet(viewsets.ViewSet):
         query = get_object_or_404(queryset, pk=pk)
         serializer = AdopterWithAnimal(query)
         return Response(serializer.data)
+
+class AdoptionViewSet(viewsets.ViewSet):  
+    ''' 
+    View que retorna as adoções
+     '''
+    response = openapi.Response('Lista dos adotantes e seus animais', AdopterWithAnimalSerializer(many = True))
+    @swagger_auto_schema(responses={200: response}) 
+    def list(self, request):
+        ''' 
+        Retorna os adotantes com os respectivos animais adotados
+        '''
+        queryset = Adoption.objects.all()
+        serializer = AdoptionSerializer(queryset,many = True)
+        return Response(serializer.data)
+
+    response = openapi.Response('Informações do adotante e seus animais', AdopterWithAnimalSerializer)
+    @swagger_auto_schema(responses = {200:response})
+    def retrieve(self, request, pk=None):
+        ''' 
+        Retorna um adotante específico com os respectivos animais adotados
+        '''
+        queryset = Adoption.objects.all()
+        query = get_object_or_404(queryset, pk=pk)
+        serializer = AdoptionSerializer(query)
+        return Response(serializer.data)
+    
+    def create(self,request):
+        data = request.data
+        data['user'] = request.user
+        serializer = AdoptionSerializer(data = data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status = status.HTTP_201_CREATED)
+        return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
+
+
+    def get_permissions(self):
+        ''' Permissões para o acesso da view
+        tem que estar logado para acessar todas as views '''
+        permission_classes = [IsUser]
+        return [permission() for permission in permission_classes]

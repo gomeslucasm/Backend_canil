@@ -40,8 +40,9 @@ class AnimalViewSet(viewsets.ViewSet):
          #   print(queryset) 
 
         page = request.GET.get('page', 1)
-        paginator = Paginator(queryset, 2)
-        print('pagina',1)
+        paginator = Paginator(queryset, 4)
+        ''' import ipdb;ipdb.set_trace(); '''
+
         try:
             data = paginator.page(page)
         except PageNotAnInteger:
@@ -60,11 +61,13 @@ class AnimalViewSet(viewsets.ViewSet):
             previousPage = data.previous_page_number()
         else:
             previousPage = data.has_previous()
-
+        ''' import ipdb;ipdb.set_trace() '''
         return Response({
                 'data':serializer.data,
                 'nextPage':nextPage,
                 'prevPage':previousPage,
+                'pages':list(iter(paginator.page_range)),
+                'currentPage':page,
             })
 
 

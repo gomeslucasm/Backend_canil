@@ -82,16 +82,29 @@ class VolunteerUserView(viewsets.ViewSet):
         return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
 
 class UserView(viewsets.ViewSet):
-    ''' View que retorna informações de usuários veterinary '''
+    ''' View que retorna informações de todos os usuários'''
     def list(self, request):
-        ''' Retorna a lista de voluntários '''
+        ''' Retorna a lista de usuários '''
         queryset = NewUser.objects.all()
         serializer = UserSerializer(queryset, many=True)
         return Response(serializer.data)
 
     def retrieve(self, request, pk=None):
-        ''' Retorna um voluntário em específico '''
-        queryset = NewUser.objects.all()
+        ''' Retorna um usuário em específico '''
+        queryset = NewUser.objects.all().order_by('first_name')
         user = get_object_or_404(queryset, pk=pk)
         serializer = UserSerializer(user)
         return Response(serializer.data)
+
+from rest_framework_simplejwt.views import TokenObtainPairView
+
+class MyTokenObtainPairView(TokenObtainPairView):
+    serializer_class = MyTokenObtainPairSerializer
+
+from rest_framework.permissions import IsAuthenticated
+from rest_framework import generics
+class ChangePasswordView(generics.UpdateAPIView):
+
+    queryset = NewUser.objects.all()
+    permission_classes = (IsAuthenticated,)
+    serializer_class = ChangePasswordSerializer
