@@ -52,11 +52,9 @@ urlpatterns = [
 from django.conf import settings
 from django.conf.urls.static import static
 
-urlpatterns += static(settings.MEDIA_URL,
-                        document_root=settings.MEDIA_ROOT)
-""" if settings.DEBUG:
+if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL,
                         document_root=settings.MEDIA_ROOT)
 else:
     urlpatterns.append(url(r'^media/(?P<path>.*)$', serve,{'document_root': settings.MEDIA_ROOT})) 
-    urlpatterns.append(url(r'^static/(?P<path>.*)$', serve,{'document_root': settings.STATIC_ROOT})) """
+    urlpatterns.append(url(r'^static/(?P<path>.*)$', serve,{'document_root': settings.STATIC_ROOT}))
