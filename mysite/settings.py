@@ -166,7 +166,17 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
+
 if DEBUG:
+    STATICFILES_DIRS = [
+        os.path.join(BASE_DIR, 'static'), #Your bundle.js path
+    ]
+else:
+    STATIC_ROOT = os.path.join(BASE_DIR,'static')
+    
+""" if DEBUG:
     BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
     PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -175,7 +185,7 @@ if DEBUG:
         os.path.join(BASE_DIR, 'static'),  # Your bundle.js path
     ]
 
-    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage' """
 
 #  Add configuration for static files storage using whitenoise
 # STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
