@@ -18,9 +18,8 @@ from datetime import timedelta
 import django_heroku
 
 
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 # Quick-start development settings - unsuitable for production
@@ -166,8 +165,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
+STATIC_URL = '/static/'
 if DEBUG:
-    STATIC_URL = '/static/'
     BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
     PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -255,4 +254,5 @@ SIMPLE_JWT = {
 
     DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage' """
 
-django_heroku.settings(locals())
+if DEBUG==False:
+    django_heroku.settings(locals())
