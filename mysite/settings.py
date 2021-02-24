@@ -174,7 +174,8 @@ if DEBUG:
         os.path.join(BASE_DIR, 'static'), #Your bundle.js path
     ]
 else:
-    STATIC_ROOT = os.path.join(BASE_DIR,'static')
+    STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 #""" if DEBUG:
 #    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
