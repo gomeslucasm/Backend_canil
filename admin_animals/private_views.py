@@ -86,6 +86,7 @@ class AnimalViewSet(viewsets.ViewSet):
         ''' import ipdb;ipdb.set_trace() '''
         serializer = AnimalSerializer(query, data=request.data, partial=True)
         ''' import ipdb;ipdb.set_trace(); '''
+        
         if serializer.is_valid():
             serializer.save()
             return Response(

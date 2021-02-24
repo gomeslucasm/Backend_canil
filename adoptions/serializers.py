@@ -18,7 +18,7 @@ class AdoptionJustWithAnimalInfoSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Adoption
-        fields = ('animal',)
+        fields = ('animal')
 
 class AdopterWithAnimalSerializer(serializers.ModelSerializer):
     

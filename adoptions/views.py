@@ -23,7 +23,7 @@ class AdopterViewSet(viewsets.ViewSet):
         ''' 
         Retorna a lista dos adotantes
         '''
-        queryset = Adopter.objects.all()
+        queryset = Adopter.objects.all().order_by('first_name')
         serializer = AdopterSerializer(queryset,many = True)
         return Response(serializer.data)
 
@@ -53,6 +53,19 @@ class AdopterViewSet(viewsets.ViewSet):
             return Response(serializer.data, status = status.HTTP_201_CREATED)
         else:
             return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
+
+    def partial_update(self, request, pk=None):
+        queryset = Adopter.objects.all()
+        query = get_object_or_404(queryset, pk=pk)
+        serializer = AdopterSerializer(query, data=request.data, partial=True)
+        if serializer.is_valid():
+            print('valido?', serializer.is_valid(),'data',request.data)
+            serializer.save()
+            print('dados atualizados = ', serializer.data)
+            return Response(
+                serializer.data,
+                status=status.HTTP_200_OK
+            )
     
     ''' def get_permissions(self):
         """

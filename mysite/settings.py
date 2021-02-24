@@ -243,11 +243,11 @@ SIMPLE_JWT = {
     'SLIDING_TOKEN_LIFETIME': timedelta(days=1),
     'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=2),
 }
-if DEBUG == False:
+""" if DEBUG == False:
     CLOUDINARY_STORAGE = {
         'CLOUD_NAME': 'gomes-lucas',
         'API_KEY': '333496649621125',
         'API_SECRET': 'ea5T7sEUI_yzbYbYGToKDgvc6sQ',
     }
 
-    DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+    DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage' """

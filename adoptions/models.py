@@ -16,6 +16,9 @@ class Adopter(models.Model):
     number = models.CharField(max_length=30)
     document = models.CharField(max_length=100)
 
+    class Meta:
+        ordering = ["first_name"]
+
 class Adoption(models.Model):
     ''' Modelo de adoção '''
     adoption_date = models.DateField(auto_now_add=True, blank = True)
