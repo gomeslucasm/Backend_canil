@@ -52,7 +52,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     #""" 'cloudinary', """
-    'django_heroku'
+    'django_heroku',
     'manage_users',
     'admin_animals',
     'rest_framework',
