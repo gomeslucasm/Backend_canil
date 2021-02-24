@@ -26,9 +26,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key      in production secret!
-# SECRET_KEY = '=3(g3ulmiw^q(-$=dh*#7*k@h_k^m3%6g#4)k$@t)=i&yg5^mq'
-SECRET_KEY = os.environ.get(
-    'DJANGO_SECRET_KEY', '=3(g3ulmiw^q(-$=dh*#7*k@h_k^m3%6g#4)k$@t)=i&yg5^mq')
+SECRET_KEY = '=3(g3ulmiw^q(-$=dh*#7*k@h_k^m3%6g#4)k$@t)=i&yg5^mq'
+#SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', '=3(g3ulmiw^q(-$=dh*#7*k@h_k^m3%6g#4)k$@t)=i&yg5^mq')
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -177,16 +176,16 @@ if DEBUG:
 else:
     STATIC_ROOT = os.path.join(BASE_DIR,'static')
 
-""" if DEBUG:
-    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-    PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
+#""" if DEBUG:
+#    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+#    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+#    PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
+#
+#    STATICFILES_DIRS = [
+#        os.path.join(BASE_DIR, 'static'),  # Your bundle.js path
+#    ]
 
-    STATICFILES_DIRS = [
-        os.path.join(BASE_DIR, 'static'),  # Your bundle.js path
-    ]
-
-    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage' """
+#    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage' """#
 
 #  Add configuration for static files storage using whitenoise
 # STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
@@ -265,5 +264,5 @@ SIMPLE_JWT = {
 
     DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage' """
 
-""" if DEBUG==False:
-    django_heroku.settings(locals()) """
+if DEBUG==False:
+    django_heroku.settings(locals())
