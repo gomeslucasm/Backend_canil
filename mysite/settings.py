@@ -52,7 +52,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     #""" 'cloudinary', """
-    'django_heroku',
+    #'django_heroku',
     'manage_users',
     'admin_animals',
     'rest_framework',
@@ -264,5 +264,5 @@ SIMPLE_JWT = {
 
     DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage' """
 
-if DEBUG==False:
-    django_heroku.settings(locals())
+""" if DEBUG==False:
+    django_heroku.settings(locals()) """
