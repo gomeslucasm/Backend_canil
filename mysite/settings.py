@@ -31,7 +31,7 @@ SECRET_KEY = '=3(g3ulmiw^q(-$=dh*#7*k@h_k^m3%6g#4)k$@t)=i&yg5^mq'
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 #DEBUG = os.environ.get('DJANGO_DEBUG', False) != 'False'
 
 
