@@ -52,14 +52,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'cloudinary',
+    #""" 'cloudinary', """
+    'django_heroku'
     'manage_users',
     'admin_animals',
     'rest_framework',
     'drf_yasg',
     'admin_operations',
     'adoptions',
-    'django_heroku'
+    
 ]
 
 MIDDLEWARE = [
@@ -175,7 +176,7 @@ if DEBUG:
     ]
 else:
     STATIC_ROOT = os.path.join(BASE_DIR,'static')
-    
+
 """ if DEBUG:
     BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
@@ -264,5 +265,5 @@ SIMPLE_JWT = {
 
     DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage' """
 
-if DEBUG==False:
-    django_heroku.settings(locals())
+""" if DEBUG==False:
+    django_heroku.settings(locals()) """
