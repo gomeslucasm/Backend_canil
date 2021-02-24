@@ -6,19 +6,19 @@ from admin_animals.private_serializers import *
 class AdopterSerializer(serializers.ModelSerializer):
     class Meta:
         model = Adopter
-        fields = ('__all__')
+        fields = '__all__'
 
 class AdoptionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Adoption
-        fields = ('__all__')
+        fields = '__all__'
 
 class AdoptionJustWithAnimalInfoSerializer(serializers.ModelSerializer):
     animal = AnimalSerializer()
 
     class Meta:
         model = Adoption
-        fields = ('animal')
+        fields = ('animal',)
 
 class AdopterWithAnimalSerializer(serializers.ModelSerializer):
     
@@ -27,6 +27,6 @@ class AdopterWithAnimalSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Adopter
-        fields = ('__all__')    
+        fields = '__all__'  
 
 
